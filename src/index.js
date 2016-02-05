@@ -1,4 +1,5 @@
 /* global Plotly */
+import 'babel-polyfill'
 import Loess from 'loess'
 import gasData from '../data/gas.json'
 import ethanolData from '../data/ethanol.json'
@@ -18,6 +19,12 @@ const layout2D = {
   title: 'LOESS Smoothing - 2D chart demo',
   titlefont: {
     size: 30
+  },
+  legend: {
+    x: 0.9,
+    y: 0.9,
+    xanchor: 'right',
+    yanchor: 'top'
   },
   hovermode: 'closest'
 }
