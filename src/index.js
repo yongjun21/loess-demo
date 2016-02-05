@@ -3,8 +3,8 @@ import Loess from 'loess'
 import gasData from '../data/gas.json'
 import ethanolData from '../data/ethanol.json'
 
-const model2D = new Loess({y: gasData.NOx, x: gasData.E}, {band: 0.8})
-const x_new2D = model2D.grid([60])
+const model2D = new Loess({y: gasData.NOx, x: gasData.E}, {span: 0.8, band: 0.8})
+const x_new2D = model2D.grid([30])
 const fit2D = model2D.predict(x_new2D)
 
 const model3D = new Loess({y: ethanolData.NOx, x: ethanolData.C, x2: ethanolData.E})
@@ -16,6 +16,9 @@ const container3D = document.getElementById('chart3D')
 
 const layout2D = {
   title: 'LOESS Smoothing - 2D chart demo',
+  titlefont: {
+    size: 30
+  },
   hovermode: 'closest'
 }
 
@@ -69,6 +72,9 @@ const dataset2D = [lowerLimit, upperLimit, scatter2D, fitted2D]
 
 const layout3D = {
   title: 'LOESS Smoothing - 3D chart demo',
+  titlefont: {
+    size: 30
+  },
   hovermode: 'closest'
 }
 
@@ -105,5 +111,47 @@ const fitted3D = {
 
 const dataset3D = [scatter3D, fitted3D]
 
-Plotly.plot(container2D, dataset2D, layout2D)
-Plotly.plot(container3D, dataset3D, layout3D)
+Plotly.newPlot(container2D, dataset2D, layout2D)
+Plotly.newPlot(container3D, dataset3D, layout3D)
+
+document.getElementById('control-panel').style.visibility = 'visible'
+const submitButton = document.querySelector('input[type="submit"]')
+const option_span = document.querySelector('input[name="span"]')
+const option_band = document.querySelector('input[name="band"]')
+const option_cuts = document.querySelector('input[name="cuts"]')
+const option_degree = document.querySelectorAll('input[name="degree"]')
+
+function replot () {
+  const options = {
+    span: +option_span.value,
+    band: +option_band.value,
+    degree: Array.from(option_degree)
+      .filter(radio => radio.checked)[0].value
+  }
+  const cuts = +option_cuts.value
+
+  const modelRe = new Loess({y: gasData.NOx, x: gasData.E}, options)
+  const x_newRe = modelRe.grid([cuts])
+  const fitRe = modelRe.predict(x_newRe)
+
+  console.log(fitRe)
+
+  Object.assign(lowerLimit, {
+    x: x_newRe.x,
+    y: fitRe.fitted.map((yhat, idx) => yhat - fitRe.halfwidth[idx])
+  })
+
+  Object.assign(upperLimit, {
+    x: x_newRe.x,
+    y: fitRe.fitted.map((yhat, idx) => yhat + fitRe.halfwidth[idx])
+  })
+
+  Object.assign(fitted2D, {
+    x: x_newRe.x,
+    y: fitRe.fitted
+  })
+
+  Plotly.newPlot(container2D, dataset2D, layout2D)
+}
+
+submitButton.addEventListener('click', replot)

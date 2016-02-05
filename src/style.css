@@ -5,31 +5,34 @@ html {
 #chart2D {
   width: 700px;
   height: 600px;
-  margin: 0 auto;
 }
 
 #chart3D {
-  width: 700px;
-  height: 600px;
+  width: 900px;
+  height: 700px;
   margin: 0 auto;
 }
 
 #control-panel {
+  visibility: hidden;
+  margin: 50px 0 0 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   margin-bottom: 3em;
 }
 
 h3 {
+  font-weight: normal;
   text-decoration: underline;
-}
-
-input[type="range"] {
-  width: 250px;
 }
 
 .options {
@@ -40,4 +43,16 @@ input[type="range"] {
 
 .options:first-of-type {
   margin-top: 0;
+}
+
+input[type="range"] {
+  width: 250px;
+}
+
+input[type="radio"] {
+  margin-left: 20px;
+}
+
+input[type="submit"] {
+  margin-top: 1.5em;
 }
