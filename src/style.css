@@ -1,9 +1,43 @@
 html {
-  text-align: center;
+  font-size: 1.2em;
 }
 
 #chart2D {
-  width: 80%;
-  height: 500px;
+  width: 700px;
+  height: 600px;
   margin: 0 auto;
+}
+
+#chart3D {
+  width: 700px;
+  height: 600px;
+  margin: 0 auto;
+}
+
+#control-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section {
+  margin-bottom: 3em;
+}
+
+h3 {
+  text-decoration: underline;
+}
+
+input[type="range"] {
+  width: 250px;
+}
+
+.options {
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 0.4em;
+}
+
+.options:first-of-type {
+  margin-top: 0;
 }

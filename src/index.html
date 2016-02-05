@@ -9,7 +9,24 @@
     <script defer src="index.js"></script>
   </head>
   <body>
-    <h1>2D chart</h1>
-    <div id="chart2D"></div>
+    <section>
+      <div id="chart2D"></div>
+      <div id="control-panel">
+        <h3>Options</h3>
+        <span class="options">span</span>
+        <input name="span" type="range" min="0.5" max="2" step="0.1" value="0.7" />
+        <span class="options">band</span>
+        <input name="band" type="range" min="0.1" max="0.9" step="0.1" value="0.8" />
+        <span class="options">degree</span>
+        <div class="radio-group">
+          <input type="radio" name="degree" value="constant" > constant
+          <input type="radio" name="degree" value="linear"> linear
+          <input type="radio" name="degree" value="quardratic" checked> quardratic
+        </div>
+      </div>
+    </section>
+    <section>
+      <div id="chart3D"></div>
+    </section>
   </body>
 </html>
